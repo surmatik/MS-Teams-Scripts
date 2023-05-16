@@ -20,37 +20,37 @@ $Holidays = @(
          Start = "2023-01-02T00:00:00"
          End = "2023-01-02T23:45:00"
          Announcement = "TEXT ANSAGE HIER"
-   }
+   },
    @{
       Name = "Karfreitag"
       Start = "2023-04-07T00:00:00"
       End = "2023-04-07T23:45:00"
       Announcement = "TEXT ANSAGE HIER"
-   }
+   },
    @{
       Name = "Ostermontag"
       Start = "2023-04-10T00:00:00"
       End = "2023-04-10T23:45:00"
       Announcement = "TEXT ANSAGE HIER"
-   }
+   },
    @{
       Name = "Auffahrt"
       Start = "2023-05-18T00:00:00"
       End = "2023-05-18T23:45:00"
       Announcement = "TEXT ANSAGE HIER"
-   }
+   },
    @{
       Name = "Pfingstmontag"
       Start = "2023-05-29T00:00:00"
       End = "2023-05-29T23:45:00"
       Announcement = "TEXT ANSAGE HIER"
-   }
+   },
    @{
       Name = "Bundesfeier"
       Start = "2023-08-01T00:00:00"
       End = "2023-08-01T23:45:00"
       Announcement = "TEXT ANSAGE HIER"
-   }
+   },
    @{
       Name = "Weihnachten"
       Start = "2023-12-25T00:00:00"
