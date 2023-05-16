@@ -58,6 +58,7 @@
             border-radius: 4px;
             cursor: pointer;
             float: left;
+            margin-right: 10px;
         }
 
         button:hover {
@@ -108,6 +109,10 @@
 <body>
     <div class="container">
         <h1>Feiertagsformular</h1>
+        <div class="form-row">
+            <label for="companyName">Firmenname:</label>
+            <input type="text" id="companyName" name="companyName" placeholder="Firmenname">
+        </div>
         <table id="holidayTable">
             <thead>
                 <tr>
@@ -138,9 +143,15 @@
     </div>
     <div class="output-container">
         <h2>Ausgabe:</h2>
+        <div class="form-row">
+            <label for="outputCompanyName">Firmenname:</label>
+            <input type="text" id="outputCompanyName" name="outputCompanyName" placeholder="Firmenname">
+        </div>
         <pre id="output"></pre>
         <div class="clearfix">
-            <button type="button" onclick="generateOutput()">Generiere Ausgabe</button>
+            <button type="button" onclick="generateOutput()">Generiere Text</button>
+            <button type="button" onclick="downloadTextFile()">Download als Textdatei</button>
+            <button type="button" onclick="sendEmail()">Per E-Mail senden</button>
         </div>
     </div>
 
@@ -169,6 +180,7 @@
 
         function generateOutput() {
             let output = "";
+            const companyName = document.getElementById("outputCompanyName").value;
             for (let i = 1; i <= holidayCount; i++) {
                 const name = document.getElementById(`name${i}`).value;
                 const startDate = document.getElementById(`startDate${i}`).value;
@@ -184,6 +196,72 @@
             }
             document.getElementById("output").innerText = output;
         }
+
+        function downloadTextFile() {
+            const companyName = document.getElementById("outputCompanyName").value;
+            const output = document.getElementById("output").innerText;
+            const blob = new Blob([companyName + "\n\n" + output], {type: "text/plain;charset=utf-8"});
+            saveAs(blob, "feiertage.txt");
+        }
+
+        function sendEmail() {
+            const companyName = document.getElementById("outputCompanyName").value;
+            const output = document.getElementById("output").innerText;
+            const subject = `Feiertage für ${companyName}`;
+            const body = companyName + "\n\n" + output;
+            const mailtoLink = `mailto:l.bertschinger@recon.ch?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailtoLink;
+        }
+    </script>
+
+    <script>
+        // Standard-Feiertage für die Schweiz
+        document.getElementById("name1").value = "Neujahr";
+        document.getElementById("startDate1").value = "2023-01-01";
+        document.getElementById("endDate1").value = "2023-01-01";
+        document.getElementById("announcement1").value = "Wir wünschen Ihnen ein frohes neues Jahr!";
+
+        addHoliday();
+        document.getElementById("name2").value = "Berchtoldstag";
+        document.getElementById("startDate2").value = "2023-01-02";
+        document.getElementById("endDate2").value = "2023-01-02";
+        document.getElementById("announcement2").value = "Wir wünschen Ihnen einen schönen Berchtoldstag!";
+
+        addHoliday();
+        document.getElementById("name3").value = "Karfreitag";
+        document.getElementById("startDate3").value = "2023-04-14";
+        document.getElementById("endDate3").value = "2023-04-14";
+        document.getElementById("announcement3").value = "Wir wünschen Ihnen einen besinnlichen Karfreitag!";
+
+        addHoliday();
+        document.getElementById("name4").value = "Ostermontag";
+        document.getElementById("startDate4").value = "2023-04-17";
+        document.getElementById("endDate4").value = "2023-04-17";
+        document.getElementById("announcement4").value = "Wir wünschen Ihnen frohe Ostern!";
+
+        addHoliday();
+        document.getElementById("name5").value = "Auffahrt";
+        document.getElementById("startDate5").value = "2023-05-25";
+        document.getElementById("endDate5").value = "2023-05-25";
+        document.getElementById("announcement5").value = "Wir wünschen Ihnen einen schönen Auffahrtstag!";
+
+        addHoliday();
+        document.getElementById("name6").value = "Pfingstmontag";
+        document.getElementById("startDate6").value = "2023-06-05";
+        document.getElementById("endDate6").value = "2023-06-05";
+        document.getElementById("announcement6").value = "Wir wünschen Ihnen frohe Pfingsten!";
+
+        addHoliday();
+        document.getElementById("name7").value = "Bundesfeier";
+        document.getElementById("startDate7").value = "2023-08-01";
+        document.getElementById("endDate7").value = "2023-08-01";
+        document.getElementById("announcement7").value = "Wir wünschen Ihnen einen schönen Nationalfeiertag!";
+
+        addHoliday();
+        document.getElementById("name8").value = "Weihnachten";
+        document.getElementById("startDate8").value = "2023-12-25";
+        document.getElementById("endDate8").value = "2023-12-25";
+        document.getElementById("announcement8").value = "Wir wünschen Ihnen frohe Weihnachten!";
     </script>
 </body>
 </html>
