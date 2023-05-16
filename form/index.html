@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feiertagsformular</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        th, td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        input[type="text"], input[type="date"], input[type="time"], textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 6px;
+            margin-bottom: 16px;
+        }
+
+        input[type="text"]::placeholder {
+            color: #ccc;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            float: left;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        .output-container {
+            margin-top: 20px;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        .output-container pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .form-row > * {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .form-row > *:last-child {
+            margin-right: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Feiertagsformular</h1>
+        <table id="holidayTable">
+            <thead>
+                <tr>
+                    <th>Name des Feiertags</th>
+                    <th>Startdatum</th>
+                    <th>Startzeit</th>
+                    <th>Enddatum</th>
+                    <th>Endzeit</th>
+                    <th>Ansagetext</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr id="holiday1">
+                    <td><input type="text" id="name1" name="name1" placeholder="Feiertag" required></td>
+                    <td><input type="date" id="startDate1" name="startDate1" onchange="document.getElementById('endDate1').value = this.value;" required></td>
+                    <td><input type="time" id="startTime1" name="startTime1" value="00:00" required></td>
+                    <td><input type="date" id="endDate1" name="endDate1" required></td>
+                    <td><input type="time" id="endTime1" name="endTime1" value="23:45" required></td>
+                    <td><textarea id="announcement1" name="announcement1" required></textarea></td>
+                    <td><button type="button" onclick="removeHoliday(1)">Entfernen</button></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="clearfix">
+            <button type="button" onclick="addHoliday()">Weiteren Feiertag hinzufügen</button>
+        </div>
+    </div>
+    <div class="output-container">
+        <h2>Ausgabe:</h2>
+        <pre id="output"></pre>
+        <div class="clearfix">
+            <button type="button" onclick="generateOutput()">Generiere Ausgabe</button>
+        </div>
+    </div>
+
+    <script>
+        let holidayCount = 1;
+
+        function addHoliday() {
+            holidayCount++;
+            const holidayRow = document.createElement("tr");
+            holidayRow.id = `holiday${holidayCount}`;
+            holidayRow.innerHTML = `
+                <td><input type="text" id="name${holidayCount}" name="name${holidayCount}" placeholder="Feiertag" required></td>
+                <td><input type="date" id="startDate${holidayCount}" name="startDate${holidayCount}" onchange="document.getElementById('endDate${holidayCount}').value = this.value;" required></td>
+                <td><input type="time" id="startTime${holidayCount}" name="startTime${holidayCount}" value="00:00" required></td>
+                <td><input type="date" id="endDate${holidayCount}" name="endDate${holidayCount}" required></td>
+                <td><input type="time" id="endTime${holidayCount}" name="endTime${holidayCount}" value="23:45" required></td>
+                <td><textarea id="announcement${holidayCount}" name="announcement${holidayCount}" required></textarea></td>
+                <td><button type="button" onclick="removeHoliday(${holidayCount})">Entfernen</button></td>
+            `;
+            document.getElementById("holidayTable").getElementsByTagName("tbody")[0].appendChild(holidayRow);
+        }
+
+        function removeHoliday(holidayNumber) {
+            document.getElementById(`holiday${holidayNumber}`).remove();
+        }
+
+        function generateOutput() {
+            let output = "";
+            for (let i = 1; i <= holidayCount; i++) {
+                const name = document.getElementById(`name${i}`).value;
+                const startDate = document.getElementById(`startDate${i}`).value;
+                const startTime = document.getElementById(`startTime${i}`).value;
+                const endDate = document.getElementById(`endDate${i}`).value;
+                const endTime = document.getElementById(`endTime${i}`).value;
+                const announcement = document.getElementById(`announcement${i}`).value;
+
+                const start = `${startDate}T${startTime}:00`;
+                const end = `${endDate}T${endTime}:00`;
+
+                output += `@{\n    Name = "${name}"\n    Start = "${start}"\n    End = "${end}"\n    Announcement = "${announcement}"\n},\n`;
+            }
+            document.getElementById("output").innerText = output;
+        }
+    </script>
+</body>
+</html>
