@@ -1,13 +1,18 @@
 ﻿# Teams-SetupHoliday.ps1
-# -----
 # Setzt im Teams den Urblaub und richtet diesen in der automatischen Telefonzentrale ein
+
+# Lino Bertschinger, 12.06.2023
+
 
 # Microsoft Teams Modul & Anmeldung
 $Modules = Get-Module | Select -ExpandProperty Name
 If ("MicrosoftTeams" -notin $Modules) { 
    Connect-MicrosoftTeams }
 
+# Telefonzentralen Name hier anpassen
+$AutoAttendantName = "AutoAttendantNAMEHIERNAPSSSEN"
 
+# Feiertage hier anpassen
 $Holidays = @(
    @{
          Name = "Neujahr"
@@ -58,9 +63,6 @@ $Holidays = @(
       Announcement = "TEXT ANSAGE HIER"
    }
 )
-
-# Telefonzentralen Name
-$AutoAttendantName = "AutoAttendantNAMEHIERNAPSSSEN"
 
 # Konfiguration
 foreach ($Holiday in $Holidays) {
