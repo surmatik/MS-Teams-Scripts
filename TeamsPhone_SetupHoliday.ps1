@@ -3,28 +3,22 @@
 
 # Lino Bertschinger, 12.06.2023
 
-
-# Microsoft Teams Modul & Anmeldung
-$Modules = Get-Module | Select -ExpandProperty Name
-If ("MicrosoftTeams" -notin $Modules) { 
-   Connect-MicrosoftTeams }
-
 # Telefonzentralen Name hier anpassen
 $AutoAttendantName = "AutoAttendantNAMEHIERNAPSSSEN"
 
 # Feiertage hier anpassen
 $Holidays = @(
    @{
-         Name = "Neujahr"
-         Start = "2023-01-01T00:00:00"
-         End = "2023-01-01T23:45:00"
-         Announcement = "TEXT ANSAGE HIER"
+      Name = "Neujahr"
+      Start = "2023-01-01T00:00:00"
+      End = "2023-01-01T23:45:00"
+      Announcement = "TEXT ANSAGE HIER"
    },
    @{
-         Name = "Berchtoldstag"
-         Start = "2023-01-02T00:00:00"
-         End = "2023-01-02T23:45:00"
-         Announcement = "TEXT ANSAGE HIER"
+      Name = "Berchtoldstag"
+      Start = "2023-01-02T00:00:00"
+      End = "2023-01-02T23:45:00"
+      Announcement = "TEXT ANSAGE HIER"
    },
    @{
       Name = "Karfreitag"
@@ -63,6 +57,12 @@ $Holidays = @(
       Announcement = "TEXT ANSAGE HIER"
    }
 )
+
+# Microsoft Teams Modul & Anmeldung
+$Modules = Get-Module | Select -ExpandProperty Name
+If ("MicrosoftTeams" -notin $Modules) { 
+   Connect-MicrosoftTeams }
+
 
 # Konfiguration
 foreach ($Holiday in $Holidays) {

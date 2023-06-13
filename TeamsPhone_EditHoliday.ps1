@@ -11,9 +11,9 @@ If ("MicrosoftTeams" -notin $Modules) {
 # Feiertage hier anpassen
 $Holidays = @(
    @{
-         Name = "Neujahr"
-         Start = "2023-01-01T00:00:00"
-         End = "2023-01-02T23:45:00"
+      Name = "Neujahr"
+      Start = "2023-01-01T00:00:00"
+      End = "2023-01-02T23:45:00"
    },
    @{
       Name = "Karfreitag"
