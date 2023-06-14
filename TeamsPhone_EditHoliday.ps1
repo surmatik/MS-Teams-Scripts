@@ -3,10 +3,9 @@
 
 # Lino Bertschinger, 12.06.2023
 
-
-$Modules = Get-Module | Select -ExpandProperty Name
-If ("MicrosoftTeams" -notin $Modules) { 
-   Connect-MicrosoftTeams }
+# TenantID des Kundens hier anpassen
+# Wenn es der eigene Tenant ist kann man die Variable leer lassen
+$TenantID = ""
 
 # Feiertage hier anpassen
 $Holidays = @(
@@ -51,6 +50,16 @@ $Holidays = @(
       End = "2023-12-26T23:45:00"
    }
 )
+
+# Microsoft Teams Modul & Anmeldung
+$Modules = Get-Module | Select -ExpandProperty Name
+If ("MicrosoftTeams" -notin $Modules) { 
+   If ($TenantID) {
+      Connect-MicrosoftTeams -TenantId $TenantID
+   } else {
+      Connect-MicrosoftTeams
+   }
+}
 
 # Konfiguration
 foreach ($Holiday in $Holidays) {

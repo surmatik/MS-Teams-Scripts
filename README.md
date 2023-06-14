@@ -2,6 +2,7 @@
 
 ## Authentifizierung <br>
 Beim Starten der Skripte wird `Connect-MicrosoftTeams` ausgeführt, welches ein Fenster öffnet indem man sich mit seinem Microsoft 365  Account authentifizieren kann.
+Soll der Skript in einem anderen Tenant, in welches man via Microsoft Partner Programm zugriff hat, so kann man die Tenant ID Des Kunden Tenants in die Variable `$TenantID` einfügen. Wenn es der eigene Tenant ist, kann man die Variable leer lassen.
 
 ## Ferien / Feiertage für Telefonzentrale
 ###  Ferien / Feiertage neu erstellen <br>
